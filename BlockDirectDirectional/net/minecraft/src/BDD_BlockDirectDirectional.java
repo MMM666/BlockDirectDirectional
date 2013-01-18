@@ -1,4 +1,4 @@
-package net.minecraft.src;
+ï»¿package net.minecraft.src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +18,18 @@ public class BDD_BlockDirectDirectional extends Block {
 
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving) {
-		// Œü‚«‚É‰‚¶‚½ƒƒ^ƒf[ƒ^‚ğ“\‚è•t‚¯‚é
+		// å‘ãã«å¿œã˜ãŸãƒ¡ã‚¿ãƒ‡ãƒ¼ã‚¿ã‚’è²¼ã‚Šä»˜ã‘ã‚‹
 		int l = determineOrientation(world, i, j, k, entityliving);
 		world.setBlockMetadataWithNotify(i, j, k, l);
 	}
 
 	private static int determineOrientation(World world, int i, int j, int k, EntityLiving entityliving) {
-		// ƒsƒXƒgƒ“‚ ‚½‚è‚ÌŠÛƒpƒNƒŠ
+		// ãƒ”ã‚¹ãƒˆãƒ³ã‚ãŸã‚Šã®ä¸¸ãƒ‘ã‚¯ãƒª
 		int ll = world.getBlockMetadata(i, j, k);
 
 		if(MathHelper.abs((float)entityliving.posX - (float)i) < 2.0F && MathHelper.abs((float)entityliving.posZ - (float)k) < 2.0F) {
 			double d = (entityliving.posY + entityliving.getEyeHeight()) - (double)entityliving.yOffset;
-			// ã‰º
+			// ä¸Šä¸‹
 			if ((d - (double)j > 2D) || ((double)j - d > 0.0D)) {
 				ll |= mod_BDD_BlockDirectDirectional.BLD_Vrt;
 			}

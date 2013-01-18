@@ -1,4 +1,4 @@
-package net.minecraft.src;
+﻿package net.minecraft.src;
 
 public class BDD_ItemBlockDirectDirectional extends ItemBlock {
 
