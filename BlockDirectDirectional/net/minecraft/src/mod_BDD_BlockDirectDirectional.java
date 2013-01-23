@@ -1,4 +1,4 @@
-ï»¿package net.minecraft.src;
+package net.minecraft.src;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,6 +39,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	public static int BLD_Inv = 0x08;
 	public static int BLD_Vrt = 0x08;
 	public static int BLD_Hor = 0x04;
+	public static boolean isForge = ModLoader.isModLoaded("Forge");
 
 
 	
@@ -60,13 +61,13 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	@Override
 	public void load() {
 		debug("Initialize.");
-		// Blockã®RenderIDã‚’ç™»éŒ²ã€ç‰¹æ®Šãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚’è¡Œã†
+		// Block‚ÌRenderID‚ğ“o˜^A“ÁêƒŒƒ“ƒ_ƒŠƒ“ƒO‚ğs‚¤
 		try {
 			renderID = ModLoader.getUniqueBlockModelID(this, true);
 		} catch (Exception e) {
 		} catch (Error e) {
 		}
-		// å‘ãä»˜ãã®æœ¨æã‚’ä¸Šæ›¸ãã€ã“ã®æ™‚ç‚¹ã§ç½®ãæ›ã‚ã£ã¦ã‚‹
+		// Œü‚«•t‚«‚Ì–ØŞ‚ğã‘‚«A‚±‚Ì“_‚Å’u‚«Š·‚í‚Á‚Ä‚é
 		if (isWoodDirection) {
 			Block.blocksList[5] = null;
 			woodDirectional = (new BDD_BlockWood(5)).setHardness(2.0F).setResistance(5F).setStepSound(Block.soundWoodFootstep).setBlockName("wood").setRequiresSelfNotify();
@@ -85,15 +86,15 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 				Character.valueOf('I'), Item.ingotIron
 			});
 			ModLoader.addName(ironTrapDoor, "Iron Trapdoor");
-			ModLoader.addName(ironTrapDoor, "ja_JP", "ã‚°ãƒ¬ãƒ¼ãƒãƒ³ã‚°");
+			ModLoader.addName(ironTrapDoor, "ja_JP", "ƒOƒŒ[ƒ`ƒ“ƒO");
 		}
 		
 		try {
-			// ã‚¢ã‚¤ãƒ†ãƒ ã«æœ‰åŠ¹ç ´å£Šå¯¾è±¡ã®è¿½åŠ 
+			// ƒAƒCƒeƒ€‚É—LŒø”j‰ó‘ÎÛ‚Ì’Ç‰Á
 			for (int i = 0; i < Item.itemsList.length; i++) {
 				if (Item.itemsList[i] instanceof ItemTool) {
-					// é“å…·ã§ã‚ã‚‹
-					// ã‚·ãƒªã‚¢ãƒ«å€¤ã§0
+					// “¹‹ï‚Å‚ ‚é
+					// ƒVƒŠƒAƒ‹’l‚Å0
 //					Block[] b = (Block[])ModLoader.getPrivateValue(ItemTool.class, Item.itemsList[i], "blocksEffectiveAgainst");
 					Block[] b = (Block[])ModLoader.getPrivateValue(ItemTool.class, (ItemTool)Item.itemsList[i], 0);
 					List<Block> l = Arrays.asList(b);
@@ -101,12 +102,12 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 					ArrayList<Block> arraylist = new ArrayList<Block>();
 					arraylist.addAll(l);
 					if (woodDirectional != null && l.indexOf(Block.planks) > -1) {
-						// æœ¨æãŒå®šç¾©ã•ã‚Œã¦ã„ã‚‹
+						// –ØŞ‚ª’è‹`‚³‚ê‚Ä‚¢‚é
 						arraylist.add(woodDirectional);
 						flag = true;
 					}
 					if (cauldronDirectional != null && l.indexOf(Block.cauldron) > -1) {
-						// å¤§é‡œãŒå®šç¾©ã•ã‚Œã¦ã„ã‚‹
+						// ‘åŠ˜‚ª’è‹`‚³‚ê‚Ä‚¢‚é
 						arraylist.add(cauldronDirectional);
 						flag = true;
 					}
@@ -124,7 +125,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			debug("ItemTool: fail");
 		}
 		
-		// Finalã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã®ã§é€šå¸¸æ‰‹æ®µã§ã®æ›¸ãæ›ãˆã¯ä¸å¯
+		// Final‚Å’è‹`‚³‚ê‚Ä‚¢‚é‚Ì‚Å’Êíè’i‚Å‚Ì‘‚«Š·‚¦‚Í•s‰Â
 		if (woodDirectional != null) {
 			if (replaceBlock(Block.planks, woodDirectional)) {
 				debug("Block.wood: directional.");
@@ -140,7 +141,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			}
 		}
 		
-		// å‘ãä»˜ããƒ–ãƒ­ãƒƒã‚¯é–¢ä¿‚
+		// Œü‚«•t‚«ƒuƒƒbƒNŠÖŒW
 		if (BlockID > 0) {
 			boolean flag = false;
 			if ((spriteName0 = spriteName0.trim()).length() > 0) {
@@ -163,7 +164,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 				directDirectional = (new BDD_BlockDirectDirectional(BlockID, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(Block.soundWoodFootstep).setBlockName("direction").setRequiresSelfNotify();
 				ModLoader.registerBlock(directDirectional, BDD_ItemBlockDirectDirectional.class);
 				ModLoader.addName(directDirectional, "Directional Block");
-				ModLoader.addName(directDirectional, "ja_JP", "å‘ãä»˜ããƒ–ãƒ­ãƒƒã‚¯");
+				ModLoader.addName(directDirectional, "ja_JP", "Œü‚«•t‚«ƒuƒƒbƒN");
 				
 				if (sprite[0] > 0) {
 					ModLoader.addRecipe(new ItemStack(directDirectional, 4, 0), new Object[] {
@@ -202,12 +203,15 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	}
 
 	private boolean replaceBlock(Block pOriginal, Block pReplace) {
+		if (isForge) {
+			return false;
+		}
 		try {
-			// Blockã®static finalåˆ†ã®ç½®æ›ãˆ
+			// Block‚Ìstatic final•ª‚Ì’uŠ·‚¦
 			Field[] lfield = Block.class.getDeclaredFields();
 			for (int li = 0; li < lfield.length; li++) {
 				if (!Modifier.isStatic(lfield[li].getModifiers())) {
-					// staticä»¥å¤–ã¯å¯¾è±¡å¤–
+					// staticˆÈŠO‚Í‘ÎÛŠO
 					continue;
 				}
 				
@@ -225,7 +229,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public void renderInvBlock(RenderBlocks renderblocks, Block block, int i, int k) {
-		//ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã§ã®æç”»
+		//ƒCƒ“ƒxƒ“ƒgƒŠ‚Å‚Ì•`‰æ
 		Tessellator var4 = Tessellator.instance;
 		
 		if (renderblocks.useInventoryTint) {
@@ -274,7 +278,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	}
 
 	public void resetUV(RenderBlocks renderblocks) {
-		// é¢ã®å›è»¢è¨­å®šã‚’åˆæœŸåŒ–
+		// –Ê‚Ì‰ñ“]İ’è‚ğ‰Šú‰»
 		renderblocks.uvRotateEast	= 0;
 		renderblocks.uvRotateWest	= 0;
 		renderblocks.uvRotateSouth	= 0;
@@ -285,7 +289,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public boolean renderWorldBlock(RenderBlocks renderblocks, IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block, int renderType) {
-		// ãƒ¯ãƒ¼ãƒ«ãƒ‰ä¸Šã§ã®æç”»
+		// ƒ[ƒ‹ƒhã‚Å‚Ì•`‰æ
 		if (block instanceof BDD_BlockWood || block instanceof BDD_BlockDirectDirectional) {
 			int ll = iblockaccess.getBlockMetadata(blockX, blockY, blockZ);
 			if ((ll & BLD_Vrt) > 0) {
@@ -335,15 +339,15 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			}
 			
 			tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
-			short ltx1 = 154;	// å†…å£å´é¢
+			short ltx1 = 154;	// “à•Ç‘¤–Ê
 			float f5 = 0.125F;
 			renderblocks.renderSouthFace(par1BlockCauldron, ((float)blockX - 1.0F) + f5, blockY, blockZ, ltx1);
 			renderblocks.renderNorthFace(par1BlockCauldron, ((float)blockX + 1.0F) - f5, blockY, blockZ, ltx1);
 			renderblocks.renderWestFace(par1BlockCauldron, blockX, blockY, ((float)blockZ - 1.0F) + f5, ltx1);
 			renderblocks.renderEastFace(par1BlockCauldron, blockX, blockY, ((float)blockZ + 1.0F) - f5, ltx1);
-			short ltx2 = 139;	// å†…å£åº•é¢
+			short ltx2 = 139;	// “à•Ç’ê–Ê
 			if (inv) {
-				// åè»¢
+				// ”½“]
 				renderblocks.renderTopFace(par1BlockCauldron, blockX, ((float)blockY - 1.0F) + 0.75F, blockZ, ltx2);
 				renderblocks.renderBottomFace(par1BlockCauldron, blockX, ((float)blockY + 1.0F) - 0.25F, blockZ, ltx2);
 				
@@ -352,7 +356,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 				renderblocks.renderBottomFace(par1BlockCauldron, blockX, ((float)blockY + 1.0F) - 0.75F, blockZ, ltx2);
 			}
 			
-			// æ°´é¢
+			// …–Ê
 			j &= 7;
 			if (j > 0) {
 				short ltx3 = 205;

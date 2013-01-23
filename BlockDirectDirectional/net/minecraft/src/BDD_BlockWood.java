@@ -1,4 +1,4 @@
-ï»¿package net.minecraft.src;
+package net.minecraft.src;
 
 public class BDD_BlockWood extends BlockWood {
 
@@ -13,18 +13,18 @@ public class BDD_BlockWood extends BlockWood {
 
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving) {
-		// å‘ãã«å¿œã˜ãŸãƒ¡ã‚¿ãƒ‡ãƒ¼ã‚¿ã‚’è²¼ã‚Šä»˜ã‘ã‚‹
+		// Œü‚«‚É‰‚¶‚½ƒƒ^ƒf[ƒ^‚ğ“\‚è•t‚¯‚é
 		int l = determineOrientation(world, i, j, k, (EntityPlayer)entityliving);
 		world.setBlockMetadataWithNotify(i, j, k, l);
 	}
 
 	private static int determineOrientation(World world, int i, int j, int k, EntityLiving entityliving) {
-		// ãƒ”ã‚¹ãƒˆãƒ³ã‚ãŸã‚Šã®ä¸¸ãƒ‘ã‚¯ãƒª
+		// ƒsƒXƒgƒ“‚ ‚½‚è‚ÌŠÛƒpƒNƒŠ
 		int ll = world.getBlockMetadata(i, j, k);
 
 		if(MathHelper.abs((float)entityliving.posX - (float)i) < 2.0F && MathHelper.abs((float)entityliving.posZ - (float)k) < 2.0F) {
 			double d = (entityliving.posY + 1.82D) - (double)entityliving.yOffset;
-			// ä¸Šä¸‹
+			// ã‰º
 			if ((d - (double)j > 2D) || ((double)j - d > 0.0D)) {
 				ll |= mod_BDD_BlockDirectDirectional.BLD_Vrt;
 			}

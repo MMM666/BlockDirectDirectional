@@ -1,4 +1,4 @@
-ï»¿package net.minecraft.src;
+package net.minecraft.src;
 
 import java.util.Random;
 
@@ -16,7 +16,7 @@ public class BDD_BlockCauldron extends BlockCauldron {
 	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, 
 			EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		// åè»¢ä¸­ã¯æ°´ãŒå…¥ã‚Šã¾ã›ã‚“
+		// ”½“]’†‚Í…‚ª“ü‚è‚Ü‚¹‚ñ
 		if (par1World.isRemote) return true;
 		int i = par1World.getBlockMetadata(par2, par3, par4);
 		if ((i & mod_BDD_BlockDirectDirectional.BLD_Inv) == 0) {
@@ -28,7 +28,7 @@ public class BDD_BlockCauldron extends BlockCauldron {
 	@Override
 	public int onBlockPlaced(World par1World, int par2, int par3, int par4,
 			int par5, float par6, float par7, float par8, int par9) {
-		// è¨­ç½®å‘ãã®åˆ¤å®š
+		// İ’uŒü‚«‚Ì”»’è
 		if (par5 == 0 || par5 != 1 && (double)par7 > 0.5D) {
 			par9 |= mod_BDD_BlockDirectDirectional.BLD_Inv;
 		}
@@ -57,7 +57,7 @@ public class BDD_BlockCauldron extends BlockCauldron {
 
 	@Override
 	public void fillWithRain(World par1World, int par2, int par3, int par4) {
-		// é€†ã•ã®é‡œã«ã¯æ°´ãŒãŸã¾ã‚‰ãªã„ã€‚
+		// ‹t‚³‚ÌŠ˜‚É‚Í…‚ª‚½‚Ü‚ç‚È‚¢B
 		if ((par1World.getBlockMetadata(par2, par3, par4) & mod_BDD_BlockDirectDirectional.BLD_Inv) == 0) {
 			super.fillWithRain(par1World, par2, par3, par4);
 		}
