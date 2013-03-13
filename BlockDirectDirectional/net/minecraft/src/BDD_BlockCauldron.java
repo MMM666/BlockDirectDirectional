@@ -4,8 +4,12 @@ import java.util.Random;
 
 public class BDD_BlockCauldron extends BlockCauldron {
 
+	private int ftickRate;
+
 	public BDD_BlockCauldron(int par1) {
 		super(par1);
+		setTickRandomly(true);
+		ftickRate = mod_BDD_BlockDirectDirectional.isBoiled ? 50 : super.tickRate();
 	}
 
 	@Override
@@ -60,6 +64,28 @@ public class BDD_BlockCauldron extends BlockCauldron {
 		// 逆さの釜には水がたまらない。
 		if ((par1World.getBlockMetadata(par2, par3, par4) & mod_BDD_BlockDirectDirectional.BLD_Inv) == 0) {
 			super.fillWithRain(par1World, par2, par3, par4);
+		}
+	}
+
+	@Override
+	public int tickRate() {
+		// 湯気の発生率
+		return ftickRate;
+	}
+
+	@Override
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
+		super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
+		if (!mod_BDD_BlockDirectDirectional.isBoiled) return;
+		int lmd = par1World.getBlockMetadata(par2, par3, par4);
+		if ((lmd & 3) == 0) return;
+		// 表示はクライアントのみ
+		int lid = par1World.getBlockId(par2, par3 - 1, par4);
+		if (	lid == Block.fire.blockID ||
+				lid == Block.lavaStill.blockID ||
+				lid == Block.lavaMoving.blockID) {
+			// 煮える！
+			BDD_Client.showFX(par1World, par2, par3, par4, par5Random, lmd);
 		}
 	}
 

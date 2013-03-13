@@ -15,6 +15,8 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	public static boolean isWoodDirection = true;
 	@MLProp(info="Enable Put away to the Cauldron with.")
 	public static boolean isCauldronDirection = true;
+	@MLProp(info="Enable Water is boiled by the Cauldron.")
+	public static boolean isBoiled = true;
 
 	@MLProp(info="Directional BlockID(0 : Disable)", min=0, max=4095)
 	public static int BlockID = 0;
@@ -50,7 +52,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.4.7-1";
+		return "1.4.7-2";
 	}
 
 	@Override
