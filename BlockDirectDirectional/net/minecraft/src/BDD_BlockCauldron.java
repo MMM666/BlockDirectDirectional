@@ -4,12 +4,9 @@ import java.util.Random;
 
 public class BDD_BlockCauldron extends BlockCauldron {
 
-	private int ftickRate;
-
 	public BDD_BlockCauldron(int par1) {
 		super(par1);
-		setTickRandomly(true);
-		ftickRate = mod_BDD_BlockDirectDirectional.isBoiled ? 50 : super.tickRate();
+		setTickRandomly(mod_BDD_BlockDirectDirectional.isBoiled);
 	}
 
 	@Override
@@ -18,12 +15,20 @@ public class BDD_BlockCauldron extends BlockCauldron {
 	}
 
 	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
+		if (isInvert(par2)) {
+			par1 = par1 == 0 ? 1 : par1 == 1 ? 0 : par1;
+		}
+		return super.getBlockTextureFromSideAndMetadata(par1, par2);
+	}
+
+	@Override
 	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, 
 			EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
 		// 反転中は水が入りません
 		if (par1World.isRemote) return true;
 		int i = par1World.getBlockMetadata(par2, par3, par4);
-		if ((i & mod_BDD_BlockDirectDirectional.BLD_Inv) == 0) {
+		if (!isInvert(i)) {
 			return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
 		}
 		return true;
@@ -40,37 +45,17 @@ public class BDD_BlockCauldron extends BlockCauldron {
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int par1, int par2) {
-		if ((par2 & mod_BDD_BlockDirectDirectional.BLD_Inv) > 0) {
-			switch (par1) {
-			case 0:
-				return 138;
-			case 1:
-				return 155;
-			}
-		} else {
-			switch (par1){
-			case 0:
-				return 155;
-			case 1:
-				return 138;
-			}
-		}
-		return 154;
-	}
-
-	@Override
 	public void fillWithRain(World par1World, int par2, int par3, int par4) {
 		// 逆さの釜には水がたまらない。
-		if ((par1World.getBlockMetadata(par2, par3, par4) & mod_BDD_BlockDirectDirectional.BLD_Inv) == 0) {
+		if (!isInvert(par1World.getBlockMetadata(par2, par3, par4))) {
 			super.fillWithRain(par1World, par2, par3, par4);
 		}
 	}
 
 	@Override
-	public int tickRate() {
+	public int tickRate(World par1World) {
 		// 湯気の発生率
-		return ftickRate;
+		return 50;
 	}
 
 	@Override
@@ -87,6 +72,13 @@ public class BDD_BlockCauldron extends BlockCauldron {
 			// 煮える！
 			BDD_Client.showFX(par1World, par2, par3, par4, par5Random, lmd);
 		}
+	}
+
+	/**
+	 * 反転チェック
+	 */
+	public static boolean isInvert(int pMetadata) {
+		return (pMetadata & mod_BDD_BlockDirectDirectional.BLD_Inv) > 0;
 	}
 
 }

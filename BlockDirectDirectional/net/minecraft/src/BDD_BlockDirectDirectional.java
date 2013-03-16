@@ -5,10 +5,27 @@ import java.util.List;
 
 public class BDD_BlockDirectDirectional extends Block {
 
+	protected Icon ficon[] = new Icon[4];
+
+
 	public BDD_BlockDirectDirectional(int i, Material material) {
 		super(i, material);
-		blockIndexInTexture = mod_BDD_BlockDirectDirectional.sprite[0];
 		setCreativeTab(CreativeTabs.tabBlock);
+	}
+
+	/**
+	 * アイコンのロード
+	 */
+	public void func_94332_a(IconRegister par1IconRegister) {
+		ficon[0] = par1IconRegister.func_94245_a("direction0");
+		ficon[1] = par1IconRegister.func_94245_a("direction1");
+		ficon[2] = par1IconRegister.func_94245_a("direction2");
+		ficon[3] = par1IconRegister.func_94245_a("direction3");
+	}
+
+	@Override
+	public Icon getBlockTextureFromSideAndMetadata(int i, int j) {
+		return ficon[j & 0x03];
 	}
 
 	@Override
@@ -17,10 +34,11 @@ public class BDD_BlockDirectDirectional extends Block {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving) {
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,
+			EntityLiving par5EntityLiving, ItemStack par6ItemStack) {
 		// 向きに応じたメタデータを貼り付ける
-		int l = determineOrientation(world, i, j, k, entityliving);
-		world.setBlockMetadataWithNotify(i, j, k, l);
+		int l = determineOrientation(par1World, par2, par3, par4, par5EntityLiving);
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
 	}
 
 	private static int determineOrientation(World world, int i, int j, int k, EntityLiving entityliving) {
@@ -45,28 +63,14 @@ public class BDD_BlockDirectDirectional extends Block {
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int i, int j) {
-		return mod_BDD_BlockDirectDirectional.sprite[j & 0x03];
-	}
-
-	@Override
 	public int damageDropped(int i) {
 		return i & 0x03;
 	}
 
 	@Override
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List) {
-		if (mod_BDD_BlockDirectDirectional.sprite[0] > 0) {
-			par3List.add(new ItemStack(par1, 1, 0));
-		}
-		if (mod_BDD_BlockDirectDirectional.sprite[1] > 0) {
-			par3List.add(new ItemStack(par1, 1, 1));
-		}
-		if (mod_BDD_BlockDirectDirectional.sprite[2] > 0) {
-			par3List.add(new ItemStack(par1, 1, 2));
-		}
-		if (mod_BDD_BlockDirectDirectional.sprite[3] > 0) {
-			par3List.add(new ItemStack(par1, 1, 3));
+		for (int li = 0; li < 4; li++) {
+			par3List.add(new ItemStack(par1, 1, li));
 		}
 	}
 

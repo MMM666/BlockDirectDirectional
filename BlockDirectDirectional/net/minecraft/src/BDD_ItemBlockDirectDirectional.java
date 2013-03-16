@@ -9,7 +9,7 @@ public class BDD_ItemBlockDirectDirectional extends ItemBlock {
 	}
 
 	@Override
-	public int getIconFromDamage(int i) {
+	public Icon getIconFromDamage(int i) {
 		return mod_BDD_BlockDirectDirectional.directDirectional.getBlockTextureFromSideAndMetadata(2, i);
 	}
 

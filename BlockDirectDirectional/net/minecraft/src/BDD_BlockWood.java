@@ -1,9 +1,15 @@
 package net.minecraft.src;
 
+import java.util.List;
+
 public class BDD_BlockWood extends BlockWood {
 
-	public BDD_BlockWood(int par1) {
+	public Block fOrigin;
+
+
+	public BDD_BlockWood(int par1, Block pWood) {
 		super(par1);
+		fOrigin = pWood;
 	}
 
 	@Override
@@ -12,10 +18,11 @@ public class BDD_BlockWood extends BlockWood {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLiving entityliving) {
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,
+			EntityLiving par5EntityLiving, ItemStack par6ItemStack) {
 		// 向きに応じたメタデータを貼り付ける
-		int l = determineOrientation(world, i, j, k, (EntityPlayer)entityliving);
-		world.setBlockMetadataWithNotify(i, j, k, l);
+		int l = determineOrientation(par1World, par2, par3, par4, (EntityPlayer)par5EntityLiving);
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
 	}
 
 	private static int determineOrientation(World world, int i, int j, int k, EntityLiving entityliving) {
@@ -39,13 +46,19 @@ public class BDD_BlockWood extends BlockWood {
 	}
 
 	@Override
-	public int getBlockTextureFromSideAndMetadata(int par1, int par2) {
+	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
 		return super.getBlockTextureFromSideAndMetadata(par1, par2 & 0x03);
 	}
 
 	@Override
 	public int damageDropped(int i) {
 		return i & 0x03;
+	}
+
+	@Override
+	public void func_94332_a(IconRegister par1IconRegister) {
+		super.func_94332_a(par1IconRegister);
+		fOrigin.func_94332_a(par1IconRegister);
 	}
 
 }
