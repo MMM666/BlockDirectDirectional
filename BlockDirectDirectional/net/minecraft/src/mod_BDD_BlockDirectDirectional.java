@@ -42,7 +42,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.0-1";
+		return "1.5.1-1";
 	}
 
 	@Override
@@ -62,14 +62,14 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 		// 向き付きの木材を上書き、この時点で置き換わってる
 		if (isWoodDirection) {
 			Block.blocksList[5] = null;
-			planksDirectional = (new BDD_BlockWood(5, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("wood");
+			planksDirectional = (new BDD_BlockWood(5, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).getIndirectPowerOutput("wood");
 		}
 		if (isCauldronDirection) {
 			Block.blocksList[118] = null;
-			cauldronDirectional = (new BDD_BlockCauldron(118)).setHardness(2.0F).setUnlocalizedName("cauldron");
+			cauldronDirectional = (new BDD_BlockCauldron(118)).setHardness(2.0F).getIndirectPowerOutput("cauldron");
 		}
 		if (IronTrapdoorID > 0) {
-			ironTrapDoor = (new BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("trapdooriron").disableStats();
+			ironTrapDoor = (new BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).getIndirectPowerOutput("trapdooriron").disableStats();
 			ModLoader.registerBlock(ironTrapDoor);
 			ModLoader.addRecipe(new ItemStack(ironTrapDoor, 2), new Object[] {
 				" II", 
@@ -137,7 +137,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 		
 		// 向き付きブロック関係
 		if (BlockID > 0) {
-			directDirectional = (new BDD_BlockDirectDirectional(BlockID, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("direction");
+			directDirectional = (new BDD_BlockDirectDirectional(BlockID, Material.wood)).setHardness(2.0F).setResistance(5F).setStepSound(Block.soundWoodFootstep).getIndirectPowerOutput("direction");
 			ModLoader.registerBlock(directDirectional, BDD_ItemBlockDirectDirectional.class);
 			ModLoader.addName(directDirectional, "Directional Block");
 			ModLoader.addName(directDirectional, "ja_JP", "向き付きブロック");

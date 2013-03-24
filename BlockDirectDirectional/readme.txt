@@ -1,4 +1,4 @@
-BlockDirectDirectional 1.4.7 Rev2
+BlockDirectDirectional 1.5.1 Rev1
 
 木材ブロックを拡張して、横向きの木材を配置できるようにするMOD。
 基本的にブロックを増やしている訳ではないのでとってもクリーン。
@@ -84,7 +84,7 @@ BlockDirectDirectional 1.4.7 Rev2
 
 
 更新履歴
-	20130315.1	1.4.7 Rev2 更新
+	20130325.1	1.5.1 Rev1 バージョンアップ
 				大釜の下に熱源があると湯気が出るようにした。
 
 

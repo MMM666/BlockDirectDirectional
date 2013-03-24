@@ -56,9 +56,9 @@ public class BDD_BlockWood extends BlockWood {
 	}
 
 	@Override
-	public void func_94332_a(IconRegister par1IconRegister) {
-		super.func_94332_a(par1IconRegister);
-		fOrigin.func_94332_a(par1IconRegister);
+	public void registerIcons(IconRegister par1IconRegister) {
+		super.registerIcons(par1IconRegister);
+		fOrigin.registerIcons(par1IconRegister);
 	}
 
 }

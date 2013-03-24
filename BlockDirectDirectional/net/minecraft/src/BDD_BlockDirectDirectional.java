@@ -16,11 +16,12 @@ public class BDD_BlockDirectDirectional extends Block {
 	/**
 	 * アイコンのロード
 	 */
-	public void func_94332_a(IconRegister par1IconRegister) {
-		ficon[0] = par1IconRegister.func_94245_a("direction0");
-		ficon[1] = par1IconRegister.func_94245_a("direction1");
-		ficon[2] = par1IconRegister.func_94245_a("direction2");
-		ficon[3] = par1IconRegister.func_94245_a("direction3");
+	@Override
+	public void registerIcons(IconRegister par1IconRegister) {
+		ficon[0] = par1IconRegister.registerIcon("direction0");
+		ficon[1] = par1IconRegister.registerIcon("direction1");
+		ficon[2] = par1IconRegister.registerIcon("direction2");
+		ficon[3] = par1IconRegister.registerIcon("direction3");
 	}
 
 	@Override
