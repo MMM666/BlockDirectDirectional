@@ -15,11 +15,11 @@ public class BDD_BlockCauldron extends BlockCauldron {
 	}
 
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
+	public Icon getIcon(int par1, int par2) {
 		if (isInvert(par2)) {
 			par1 = par1 == 0 ? 1 : par1 == 1 ? 0 : par1;
 		}
-		return super.getBlockTextureFromSideAndMetadata(par1, par2);
+		return super.getIcon(par1, par2);
 	}
 
 	@Override

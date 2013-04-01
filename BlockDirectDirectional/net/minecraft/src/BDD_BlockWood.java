@@ -46,8 +46,8 @@ public class BDD_BlockWood extends BlockWood {
 	}
 
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int par1, int par2) {
-		return super.getBlockTextureFromSideAndMetadata(par1, par2 & 0x03);
+	public Icon getIcon(int par1, int par2) {
+		return super.getIcon(par1, par2 & 0x03);
 	}
 
 	@Override

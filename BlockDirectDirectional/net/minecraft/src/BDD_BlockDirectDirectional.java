@@ -25,7 +25,7 @@ public class BDD_BlockDirectDirectional extends Block {
 	}
 
 	@Override
-	public Icon getBlockTextureFromSideAndMetadata(int i, int j) {
+	public Icon getIcon(int i, int j) {
 		return ficon[j & 0x03];
 	}
 
