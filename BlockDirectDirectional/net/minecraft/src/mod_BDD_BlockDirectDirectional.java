@@ -211,29 +211,29 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		var4.startDrawingQuads();
 		var4.setNormal(0.0F, -1.0F, 0.0F);
-		renderblocks.renderBottomFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, i));
+		renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, i));
 		var4.draw();
 		
 		var4.startDrawingQuads();
 		var4.setNormal(0.0F, 1.0F, 0.0F);
-		renderblocks.renderTopFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, i));
+		renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, i));
 		var4.draw();
 		
 		var4.startDrawingQuads();
 		var4.setNormal(0.0F, 0.0F, -1.0F);
-		renderblocks.renderEastFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, i));
+		renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, i));
 		var4.draw();
 		var4.startDrawingQuads();
 		var4.setNormal(0.0F, 0.0F, 1.0F);
-		renderblocks.renderWestFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, i));
+		renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, i));
 		var4.draw();
 		var4.startDrawingQuads();
 		var4.setNormal(-1.0F, 0.0F, 0.0F);
-		renderblocks.renderNorthFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, i));
+		renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, i));
 		var4.draw();
 		var4.startDrawingQuads();
 		var4.setNormal(1.0F, 0.0F, 0.0F);
-		renderblocks.renderSouthFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, i));
+		renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, i));
 		var4.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
@@ -302,18 +302,18 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			tessellator.setColorOpaque_F(var6 * lfcr, var6 * lfcg, var6 * lfcb);
 			Icon licon = par1BlockCauldron.getBlockTextureFromSide(2);
 			float var11 = 0.125F;
-			renderblocks.renderSouthFace(par1BlockCauldron, (double)((float)blockX - 1.0F + var11), (double)blockY, (double)blockZ, licon);
-			renderblocks.renderNorthFace(par1BlockCauldron, (double)((float)blockX + 1.0F - var11), (double)blockY, (double)blockZ, licon);
-			renderblocks.renderWestFace(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ - 1.0F + var11), licon);
-			renderblocks.renderEastFace(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ + 1.0F - var11), licon);
+			renderblocks.renderFaceXPos(par1BlockCauldron, (double)((float)blockX - 1.0F + var11), (double)blockY, (double)blockZ, licon);
+			renderblocks.renderFaceXNeg(par1BlockCauldron, (double)((float)blockX + 1.0F - var11), (double)blockY, (double)blockZ, licon);
+			renderblocks.renderFaceZPos(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ - 1.0F + var11), licon);
+			renderblocks.renderFaceZNeg(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ + 1.0F - var11), licon);
 			licon = BlockCauldron.func_94375_b("cauldron_inner");
 			if (inv) {
 				// ”½“]
-				renderblocks.renderTopFace(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.75F), (double)blockZ, licon);
-				renderblocks.renderBottomFace(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.25F), (double)blockZ, licon);
+				renderblocks.renderFaceYPos(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.75F), (double)blockZ, licon);
+				renderblocks.renderFaceYNeg(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.25F), (double)blockZ, licon);
 			} else {
-				renderblocks.renderTopFace(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.25F), (double)blockZ, licon);
-				renderblocks.renderBottomFace(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.75F), (double)blockZ, licon);
+				renderblocks.renderFaceYPos(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.25F), (double)blockZ, licon);
+				renderblocks.renderFaceYNeg(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.75F), (double)blockZ, licon);
 			}
 			
 			// …–Ê
@@ -323,7 +323,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 				if (j > 3) {
 					j = 3;
 				}
-				renderblocks.renderTopFace(par1BlockCauldron,
+				renderblocks.renderFaceYPos(par1BlockCauldron,
 						(double)blockX, 
 						(double)((float)blockY - 1.0F + (6.0F + (float)j * 3.0F) / 16.0F),
 						(double)blockZ, licon);
