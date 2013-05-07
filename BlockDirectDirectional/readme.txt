@@ -1,4 +1,4 @@
-BlockDirectDirectional 1.5.1 Rev1
+BlockDirectDirectional 1.5.2 Rev1
 
 木材ブロックを拡張して、横向きの木材を配置できるようにするMOD。
 基本的にブロックを増やしている訳ではないのでとってもクリーン。
@@ -20,7 +20,6 @@ BlockDirectDirectional 1.5.1 Rev1
 	要Modloader。
 	%appdata%/.mincraft/modsにZIPのまま放りこめば動くはずです。
 	%appdata%/.mincraft/config/mod_BDD_BlockDirectDirectional.cfgができるので設定はそちらで。
-	CreativeAPIに対応しています、無くても動きますが。
 
 
 効能
@@ -84,11 +83,12 @@ BlockDirectDirectional 1.5.1 Rev1
 
 
 更新履歴
+	20130507.1	1.5.2 Rev1 バージョンアップ
+
+
+
 	20130325.1	1.5.1 Rev1 バージョンアップ
 				大釜の下に熱源があると湯気が出るようにした。
-
-
-
 	20130116.1	1.4.7 Rev1 バージョンアップ
 	20121222.1	1.4.6 Rev1 バージョンアップ
 	20121217.1	1.4.5 Rev1 バージョンアップ

@@ -42,7 +42,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.1-1";
+		return "1.5.2-1";
 	}
 
 	@Override
