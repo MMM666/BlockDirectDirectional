@@ -19,13 +19,13 @@ public class BDD_BlockWood extends BlockWood {
 
 	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,
-			EntityLiving par5EntityLiving, ItemStack par6ItemStack) {
+			EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
 		// 向きに応じたメタデータを貼り付ける
 		int l = determineOrientation(par1World, par2, par3, par4, (EntityPlayer)par5EntityLiving);
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, l, 2);
 	}
 
-	private static int determineOrientation(World world, int i, int j, int k, EntityLiving entityliving) {
+	private static int determineOrientation(World world, int i, int j, int k, EntityLivingBase entityliving) {
 		// ピストンあたりの丸パクリ
 		int ll = world.getBlockMetadata(i, j, k);
 

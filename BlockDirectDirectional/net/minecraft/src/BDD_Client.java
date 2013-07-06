@@ -2,8 +2,6 @@ package net.minecraft.src;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
-
 public class BDD_Client {
 
 	public static void showFX(World par1World, int par2, int par3, int par4, Random par5Random, int pMetadata) {
