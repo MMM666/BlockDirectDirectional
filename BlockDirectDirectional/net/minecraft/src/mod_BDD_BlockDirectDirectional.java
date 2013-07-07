@@ -42,7 +42,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.2-1";
+		return "1.6.1-1";
 	}
 
 	@Override
@@ -62,14 +62,14 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 		// 向き付きの木材を上書き、この時点で置き換わってる
 		if (isWoodDirection) {
 			Block.blocksList[5] = null;
-			planksDirectional = (new BDD_BlockWood(5, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("wood");
+			planksDirectional = (new BDD_BlockWood(5, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("wood").func_111022_d("planks");
 		}
 		if (isCauldronDirection) {
 			Block.blocksList[118] = null;
-			cauldronDirectional = (new BDD_BlockCauldron(118)).setHardness(2.0F).setUnlocalizedName("cauldron");
+			cauldronDirectional = (new BDD_BlockCauldron(118)).setHardness(2.0F).setUnlocalizedName("cauldron").func_111022_d("cauldron");
 		}
 		if (IronTrapdoorID > 0) {
-			ironTrapDoor = (new BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("trapdooriron").disableStats();
+			ironTrapDoor = (new BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("trapdooriron").func_111022_d("iron_bars").disableStats();
 			ModLoader.registerBlock(ironTrapDoor);
 			ModLoader.addRecipe(new ItemStack(ironTrapDoor, 2), new Object[] {
 				" II", 
@@ -306,7 +306,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			renderblocks.renderFaceXNeg(par1BlockCauldron, (double)((float)blockX + 1.0F - var11), (double)blockY, (double)blockZ, licon);
 			renderblocks.renderFaceZPos(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ - 1.0F + var11), licon);
 			renderblocks.renderFaceZNeg(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ + 1.0F - var11), licon);
-			licon = BlockCauldron.func_94375_b("cauldron_inner");
+			licon = BlockCauldron.func_94375_b("inner");
 			if (inv) {
 				// 反転
 				renderblocks.renderFaceYPos(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.75F), (double)blockZ, licon);
