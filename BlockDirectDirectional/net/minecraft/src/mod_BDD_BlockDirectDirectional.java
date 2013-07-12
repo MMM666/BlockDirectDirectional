@@ -12,6 +12,8 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 	@MLProp(info="Enable Put away to the Planks with.")
 	public static boolean isWoodDirection = true;
+	@MLProp(info="Enable Put away to the TrapDoor with.")
+	public static boolean isTrapDoorDirection = true;
 	@MLProp(info="Enable Put away to the Cauldron with.")
 	public static boolean isCauldronDirection = true;
 	@MLProp(info="Enable Water is boiled by the Cauldron.")
@@ -26,6 +28,7 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 	public static int renderID = 0;
 	public static Block planksDirectional;
 	public static Block cauldronDirectional;
+	public static Block trapdoorDirectional;
 	public static Block directDirectional;
 	public static Block ironTrapDoor; 
 	public static int BLD_Inv = 0x08;
@@ -35,14 +38,13 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 
 
 	
-	public static void debug(String str) {
-		System.out.print("BlockLogDirection-");
-		System.out.println(str);
+	public static void debug(String str, Object...pArg) {
+		System.out.println(String.format("BlockLogDirection-" + str, pArg));
 	}
 
 	@Override
 	public String getVersion() {
-		return "1.6.1-1";
+		return "1.6.2-1";
 	}
 
 	@Override
@@ -61,15 +63,19 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 		}
 		// 向き付きの木材を上書き、この時点で置き換わってる
 		if (isWoodDirection) {
-			Block.blocksList[5] = null;
-			planksDirectional = (new BDD_BlockWood(5, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("wood").func_111022_d("planks");
+			Block.blocksList[Block.planks.blockID] = null;
+			planksDirectional = (new BDD_BlockWood(Block.planks.blockID, Block.planks)).setHardness(2.0F).setResistance(5.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("wood").func_111022_d("planks");
 		}
 		if (isCauldronDirection) {
-			Block.blocksList[118] = null;
-			cauldronDirectional = (new BDD_BlockCauldron(118)).setHardness(2.0F).setUnlocalizedName("cauldron").func_111022_d("cauldron");
+			Block.blocksList[Block.cauldron.blockID] = null;
+			cauldronDirectional = (new BDD_BlockCauldron(Block.cauldron.blockID)).setHardness(2.0F).setUnlocalizedName("cauldron").func_111022_d("cauldron");
+		}
+		if (isTrapDoorDirection) {
+			Block.blocksList[Block.trapdoor.blockID] = null;
+			trapdoorDirectional = (new BDD_BlockTrapDoor(Block.trapdoor.blockID, Material.wood)).setHardness(3.0F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("trapdoor").disableStats().func_111022_d("trapdoor");
 		}
 		if (IronTrapdoorID > 0) {
-			ironTrapDoor = (new BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("trapdooriron").func_111022_d("iron_bars").disableStats();
+			ironTrapDoor = (new BDD_BlockTrapDoor(IronTrapdoorID, Material.iron)).setHardness(3F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("trapdooriron").func_111022_d("iron_bars").disableStats();
 			ModLoader.registerBlock(ironTrapDoor);
 			ModLoader.addRecipe(new ItemStack(ironTrapDoor, 2), new Object[] {
 				" II", 
@@ -89,18 +95,23 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 					// シリアル値で0
 //					Block[] b = (Block[])ModLoader.getPrivateValue(ItemTool.class, Item.itemsList[i], "blocksEffectiveAgainst");
 					Block[] b = (Block[])ModLoader.getPrivateValue(ItemTool.class, (ItemTool)Item.itemsList[i], 0);
-					List<Block> l = Arrays.asList(b);
+					List<Block> lblist = Arrays.asList(b);
 					boolean flag = false;
 					ArrayList<Block> arraylist = new ArrayList<Block>();
-					arraylist.addAll(l);
-					if (planksDirectional != null && l.indexOf(Block.planks) > -1) {
+					arraylist.addAll(lblist);
+					if (planksDirectional != null && lblist.indexOf(Block.planks) > -1) {
 						// 木材が定義されている
 						arraylist.add(planksDirectional);
 						flag = true;
 					}
-					if (cauldronDirectional != null && l.indexOf(Block.cauldron) > -1) {
+					if (cauldronDirectional != null && lblist.indexOf(Block.cauldron) > -1) {
 						// 大釜が定義されている
 						arraylist.add(cauldronDirectional);
+						flag = true;
+					}
+					if (trapdoorDirectional != null && lblist.indexOf(Block.trapdoor) > -1) {
+						// 大釜が定義されている
+						arraylist.add(trapdoorDirectional);
 						flag = true;
 					}
 					
@@ -124,14 +135,19 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			} else {
 				debug("Block.wood: fail");
 			}
-//			Item.itemsList[planksDirectional.blockID] = null;
-//			Item.itemsList[planksDirectional.blockID] = (new ItemMultiTextureTile(planksDirectional.blockID - 256, planksDirectional, BlockWood.woodType)).setUnlocalizedName("wood");
 		}
 		if (cauldronDirectional != null) {
 			if (replaceBlock(Block.cauldron, cauldronDirectional)) {
 				debug("Block.cauldron: directional.");
 			} else {
-				debug("Blockcauldron.: fail");
+				debug("Block.cauldron.: fail");
+			}
+		}
+		if (trapdoorDirectional != null) {
+			if (replaceBlock(Block.trapdoor, trapdoorDirectional)) {
+				debug("Block.trapdoor: directional.");
+			} else {
+				debug("Block.trapdoor.: fail");
 			}
 		}
 		
@@ -280,12 +296,12 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 				renderblocks.uvRotateNorth = 3;
 			}
 			
-			BlockCauldron par1BlockCauldron = (BlockCauldron)block;
-			renderblocks.renderStandardBlock(par1BlockCauldron, blockX, blockY, blockZ);
+			BlockCauldron lbcauldron = (BlockCauldron)block;
+			renderblocks.renderStandardBlock(lbcauldron, blockX, blockY, blockZ);
 			Tessellator tessellator = Tessellator.instance;
-			tessellator.setBrightness(par1BlockCauldron.getMixedBrightnessForBlock(iblockaccess, blockX, blockY, blockZ));
+			tessellator.setBrightness(lbcauldron.getMixedBrightnessForBlock(iblockaccess, blockX, blockY, blockZ));
 			float var6 = 1.0F;
-			int lcolor = par1BlockCauldron.colorMultiplier(iblockaccess, blockX, blockY, blockZ);
+			int lcolor = lbcauldron.colorMultiplier(iblockaccess, blockX, blockY, blockZ);
 			float lfcr = (float)(lcolor >> 16 & 255) / 255.0F;
 			float lfcg = (float)(lcolor >> 8 & 255) / 255.0F;
 			float lfcb = (float)(lcolor & 255) / 255.0F;
@@ -300,30 +316,30 @@ public class mod_BDD_BlockDirectDirectional extends BaseMod {
 			}
 			
 			tessellator.setColorOpaque_F(var6 * lfcr, var6 * lfcg, var6 * lfcb);
-			Icon licon = par1BlockCauldron.getBlockTextureFromSide(2);
+			Icon licon = lbcauldron.getBlockTextureFromSide(2);
 			float var11 = 0.125F;
-			renderblocks.renderFaceXPos(par1BlockCauldron, (double)((float)blockX - 1.0F + var11), (double)blockY, (double)blockZ, licon);
-			renderblocks.renderFaceXNeg(par1BlockCauldron, (double)((float)blockX + 1.0F - var11), (double)blockY, (double)blockZ, licon);
-			renderblocks.renderFaceZPos(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ - 1.0F + var11), licon);
-			renderblocks.renderFaceZNeg(par1BlockCauldron, (double)blockX, (double)blockY, (double)((float)blockZ + 1.0F - var11), licon);
+			renderblocks.renderFaceXPos(lbcauldron, (double)((float)blockX - 1.0F + var11), (double)blockY, (double)blockZ, licon);
+			renderblocks.renderFaceXNeg(lbcauldron, (double)((float)blockX + 1.0F - var11), (double)blockY, (double)blockZ, licon);
+			renderblocks.renderFaceZPos(lbcauldron, (double)blockX, (double)blockY, (double)((float)blockZ - 1.0F + var11), licon);
+			renderblocks.renderFaceZNeg(lbcauldron, (double)blockX, (double)blockY, (double)((float)blockZ + 1.0F - var11), licon);
 			licon = BlockCauldron.func_94375_b("inner");
 			if (inv) {
 				// 反転
-				renderblocks.renderFaceYPos(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.75F), (double)blockZ, licon);
-				renderblocks.renderFaceYNeg(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.25F), (double)blockZ, licon);
+				renderblocks.renderFaceYPos(lbcauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.75F), (double)blockZ, licon);
+				renderblocks.renderFaceYNeg(lbcauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.25F), (double)blockZ, licon);
 			} else {
-				renderblocks.renderFaceYPos(par1BlockCauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.25F), (double)blockZ, licon);
-				renderblocks.renderFaceYNeg(par1BlockCauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.75F), (double)blockZ, licon);
+				renderblocks.renderFaceYPos(lbcauldron, (double)blockX, (double)((float)blockY - 1.0F + 0.25F), (double)blockZ, licon);
+				renderblocks.renderFaceYNeg(lbcauldron, (double)blockX, (double)((float)blockY + 1.0F - 0.75F), (double)blockZ, licon);
 			}
 			
 			// 水面
 			j &= 7;
 			if (j > 0) {
-				licon = BlockFluid.func_94424_b("water");
+				licon = BlockFluid.func_94424_b("water_still");
 				if (j > 3) {
 					j = 3;
 				}
-				renderblocks.renderFaceYPos(par1BlockCauldron,
+				renderblocks.renderFaceYPos(lbcauldron,
 						(double)blockX, 
 						(double)((float)blockY - 1.0F + (6.0F + (float)j * 3.0F) / 16.0F),
 						(double)blockZ, licon);
